@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Group 1 and 17 Elements Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f8fb;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      background-color: #0077b6;
+      color: white;
+      width: 100%;
+      text-align: center;
+      padding: 20px 0;
+      margin: 0 0 20px 0;
+    }
+    .quiz-container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 700px;
+      padding: 20px;
+    }
+    .question {
+      font-weight: bold;
+    }
+    .options button {
+      display: block;
+      width: 100%;
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      background-color: #f0f0f0;
+      cursor: pointer;
+    }
+    .options button:hover {
+      background-color: #e0f0ff;
+    }
+    .feedback {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 8px;
+    }
+    .correct {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .incorrect {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    .next-btn {
+      background-color: #0077b6;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+    .next-btn:hover {
+      background-color: #005f8f;
+    }
+  </style>
+</head>
+<body>
+  <h1>Group 1 and 17 Elements Quiz</h1>
+  <div class="quiz-container">
+    <div id="quiz"></div>
+    <button class="next-btn" id="nextBtn" style="display:none">Next Question</button>
+  </div>
+
+  <script>
+    const questions = [
+      { q: 'Which of the following statements about Group 1 elements is correct?', options: ['They are non-metals.', 'They form ions with a 1- charge.', 'They are stored in water to prevent reactions.', 'They are soft and can be cut with a knife.'], answer: 3, feedback: ['Group 1 elements are metals, not non-metals.', 'They form ions with a 1+ charge, not 1-.', 'They are stored in oil, not water, to prevent reactions.', 'Correct! They are soft and can be cut with a knife.'] },
+      { q: 'An element in Group 1 reacts with cold water. Which of the following observations would be expected?', options: ['A colourless acidic gas is produced.', 'The element sinks and does not react.', 'A colourless alkaline solution is formed.', 'A coloured precipitate is formed.'], answer: 2, feedback: ['Hydrogen gas is produced, which is neutral, not acidic.', 'Group 1 metals react vigorously; most float.', 'Correct! The solution is colourless and alkaline.', 'No precipitate forms because hydroxides are soluble.'] },
+      { q: 'The reactivity of Group 1 metals increases down the group. Why is this?', options: ['The number of protons in the nucleus increases.', 'The valence electron is further from the nucleus and less strongly attracted.', 'The metals become harder and denser.', 'The number of valence electrons increases.'], answer: 1, feedback: ['True but not the main reason.', 'Correct! The outer electron is farther and less attracted.', 'This refers to physical changes, not reactivity.', 'All Group 1 metals have one valence electron.'] }
+      // You can continue adding more questions similarly
+    ];
+
+    let currentQuestion = 0;
+    const quizContainer = document.getElementById('quiz');
+    const nextBtn = document.getElementById('nextBtn');
+
+    function loadQuestion() {
+      const q = questions[currentQuestion];
+      quizContainer.innerHTML = `
+        <div class='question'>${currentQuestion + 1}. ${q.q}</div>
+        <div class='options'>
+          ${q.options.map((opt, i) => `<button onclick='checkAnswer(${i})'>${opt}</button>`).join('')}
+        </div>
+        <div id='feedback' class='feedback'></div>
+      `;
+      nextBtn.style.display = 'none';
+    }
+
+    function checkAnswer(selected) {
+      const q = questions[currentQuestion];
+      const feedbackDiv = document.getElementById('feedback');
+      const buttons = document.querySelectorAll('.options button');
+      buttons.forEach(btn => btn.disabled = true);
+
+      if (selected === q.answer) {
+        feedbackDiv.innerHTML = `<div class='correct'>✅ ${q.feedback[selected]}</div>`;
+      } else {
+        feedbackDiv.innerHTML = `<div class='incorrect'>❌ ${q.feedback[selected]}</div>`;
+      }
+      nextBtn.style.display = 'inline-block';
+    }
+
+    nextBtn.addEventListener('click', () => {
+      currentQuestion++;
+      if (currentQuestion < questions.length) {
+        loadQuestion();
+      } else {
+        quizContainer.innerHTML = '<h3>Quiz Complete! 🎉</h3>';
+        nextBtn.style.display = 'none';
+      }
+    });
+
+    loadQuestion();
+  </script>
+</body>
+</html>
