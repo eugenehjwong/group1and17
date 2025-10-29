@@ -1,159 +1,273 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Group 1 & 17 Elements Quiz</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f7fb;
-      margin: 0;
-      padding: 20px;
-      color: #333;
-    }
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
-    h1 {
-      text-align: center;
-      color: #0077cc;
-    }
-    .question {
-      margin-bottom: 20px;
-    }
-    .options label {
-      display: block;
-      margin-bottom: 8px;
-      cursor: pointer;
-      padding: 10px;
-      background: #eef3f7;
-      border-radius: 6px;
-      transition: background 0.3s;
-    }
-    .options label:hover {
-      background: #dcecff;
-    }
-    button {
-      display: inline-block;
-      padding: 10px 20px;
-      background: #0077cc;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-top: 15px;
-    }
-    button:hover {
-      background: #005fa3;
-    }
-    .feedback {
-      margin-top: 10px;
-      padding: 10px;
-      border-radius: 6px;
-    }
-    .correct {
-      background: #d4edda;
-      color: #155724;
-    }
-    .incorrect {
-      background: #f8d7da;
-      color: #721c24;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Group 1 & 17 Quiz</title>
+<style>
+  body { font-family: Arial, sans-serif; background-color: #f0f4f8; color: #333; margin: 0; padding: 0; }
+  .container { max-width: 800px; margin: 50px auto; background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
+  h1 { text-align: center; color: #0073e6; }
+  .question { font-size: 1.2em; margin-bottom: 20px; }
+  .options { list-style: none; padding: 0; }
+  .options li { margin-bottom: 10px; }
+  button { padding: 10px 20px; background-color: #0073e6; color: white; border: none; border-radius: 5px; cursor: pointer; }
+  button:hover { background-color: #005bb5; }
+  .feedback { margin-top: 15px; padding: 15px; border-radius: 5px; background-color: #e6f0ff; }
+  .score { text-align: center; font-size: 1.5em; margin-top: 20px; color: #0073e6; }
+</style>
 </head>
 <body>
-  <div class="container">
-    <h1>Group 1 & 17 Elements Quiz</h1>
-    <div id="quiz"></div>
-    <button id="nextBtn" onclick="nextQuestion()">Next Question</button>
-  </div>
+<div class="container">
+<h1>Periodic Table Quiz: Group 1 & 17 Elements</h1>
+<div id="quiz">
+  <div class="question" id="question"></div>
+  <ul class="options" id="options"></ul>
+  <button id="submitBtn">Submit Answer</button>
+  <div class="feedback" id="feedback" style="display:none;"></div>
+</div>
+<div class="score" id="score" style="display:none;"></div>
+<button id="restartBtn" style="display:none;">Restart Quiz</button>
+</div>
 
-  <script>
-    const questions = [
-      {
-        q: "Which of the following statements about Group 1 elements is correct?",
-        options: [
-          "They are non-metals.",
-          "They form ions with a 1- charge.",
-          "They are stored in water to prevent reactions.",
-          "They are soft and can be cut with a knife."
-        ],
-        correct: 3,
-        feedback: [
-          "Incorrect. Group 1 elements are metals (shiny, conductive, lose electrons).",
-          "Incorrect. They form 1+ ions, not 1-.",
-          "Incorrect. They react violently with water and must be stored in oil.",
-          "Correct! Group 1 metals are soft enough to be cut with a knife."
-        ]
-      },
-      {
-        q: "An element in Group 1 reacts with cold water. Which of the following observations would be expected?",
-        options: [
-          "A colourless acidic gas is produced.",
-          "The element sinks and does not react.",
-          "A colourless alkaline solution is formed.",
-          "A coloured precipitate is formed."
-        ],
-        correct: 2,
-        feedback: [
-          "Incorrect. Hydrogen gas is produced, which is neutral, not acidic.",
-          "Incorrect. Group 1 metals are reactive and often float on water.",
-          "Correct! They form colourless alkaline hydroxides and hydrogen gas.",
-          "Incorrect. The products are soluble; no precipitate forms."
-        ]
-      },
-      // ... (remaining 18 questions with detailed feedback omitted for brevity)
-    ];
-
-    let current = 0;
-
-    function loadQuestion() {
-      const q = questions[current];
-      const quizDiv = document.getElementById('quiz');
-      quizDiv.innerHTML = `
-        <div class='question'><strong>Q${current + 1}.</strong> ${q.q}</div>
-        <div class='options'>
-          ${q.options.map((opt, i) => `<label><input type='radio' name='q${current}' value='${i}'> ${opt}</label>`).join('')}
-        </div>
-        <button onclick='checkAnswer()'>Submit</button>
-        <div id='feedback'></div>
-      `;
+<script>
+const questions = [
+  {
+    question: "Which of the following statements about Group 1 elements is correct?",
+    options: {
+      A: "They are non-metals.",
+      B: "They form ions with a 1- charge.",
+      C: "They are stored in water to prevent reactions.",
+      D: "They are soft and can be cut with a knife."
+    },
+    answer: "D",
+    feedback: {
+      A: "Incorrect. Group 1 elements (Alkali Metals) are characteristic metals.",
+      B: "Incorrect. They form 1+ ions, not 1-.",
+      C: "Incorrect. They must be stored in oil, not water.",
+      D: "Correct! Group 1 metals are soft and can be cut with a knife."
     }
-
-    function checkAnswer() {
-      const selected = document.querySelector(`input[name='q${current}']:checked`);
-      const feedbackDiv = document.getElementById('feedback');
-      if (!selected) {
-        feedbackDiv.innerHTML = '<div class="incorrect">Please select an answer.</div>';
-        return;
-      }
-      const answer = parseInt(selected.value);
-      const q = questions[current];
-      if (answer === q.correct) {
-        feedbackDiv.innerHTML = `<div class='feedback correct'>${q.feedback[answer]}</div>`;
-      } else {
-        feedbackDiv.innerHTML = `<div class='feedback incorrect'>${q.feedback[answer]}</div>`;
-      }
-      document.querySelectorAll('input').forEach(i => i.disabled = true);
+  },
+  {
+    question: "An element in Group 1 reacts with cold water. Which of the following observations would be expected?",
+    options: {
+      A: "A colourless acidic gas is produced.",
+      B: "The element sinks and does not react.",
+      C: "A colourless alkaline solution is formed.",
+      D: "A coloured precipitate is formed."
+    },
+    answer: "C",
+    feedback: {
+      A: "Incorrect. Hydrogen gas is colourless and neutral; solution is alkaline, not acidic.",
+      B: "Incorrect. Group 1 metals react vigorously and often float.",
+      C: "Correct! The reaction produces a colourless alkaline solution (metal hydroxide).",
+      D: "Incorrect. No precipitate is formed; hydroxides are soluble."
     }
-
-    function nextQuestion() {
-      if (current < questions.length - 1) {
-        current++;
-        loadQuestion();
-      } else {
-        document.getElementById('quiz').innerHTML = '<h2>Quiz completed! Well done!</h2>';
-        document.getElementById('nextBtn').style.display = 'none';
-      }
+  },
+  {
+    question: "The reactivity of Group 1 metals increases down the group. Why is this?",
+    options: {
+      A: "The number of protons in the nucleus increases.",
+      B: "The valence electron is further from the nucleus and less strongly attracted.",
+      C: "The metals become harder and denser.",
+      D: "The number of valence electrons increases."
+    },
+    answer: "B",
+    feedback: {
+      A: "Incorrect. More protons exist, but shielding reduces nuclear pull on valence electron.",
+      B: "Correct! Outer electron is farther from nucleus and lost more easily, increasing reactivity.",
+      C: "Incorrect. Hardness does not determine reactivity.",
+      D: "Incorrect. All Group 1 elements have one valence electron."
     }
+  },
+  {
+    question: "Which equation correctly represents the reaction of potassium with water?",
+    options: {
+      A: "2K(s) + 2H₂O(l) → 2KOH(aq) + H₂(g)",
+      B: "K(s) + H₂O(l) → KOH(aq) + H(g)",
+      C: "2K(s) + H₂O(l) → K₂O(aq) + H₂(g)",
+      D: "4K(s) + O₂(g) → 2K₂O(s)"
+    },
+    answer: "A",
+    feedback: {
+      A: "Correct! Potassium reacts with water to form potassium hydroxide and hydrogen gas.",
+      B: "Incorrect. Hydrogen is diatomic (H₂) and equation is unbalanced.",
+      C: "Incorrect. Reaction produces hydroxide, not oxide.",
+      D: "Incorrect. This is potassium reacting with oxygen, not water."
+    }
+  },
+  {
+    question: "Which of the following describes the trend in melting points for Group 1 elements from Lithium to Caesium?",
+    options: { A:"They increase.", B:"They decrease.", C:"They remain the same.", D:"They increase then decrease." },
+    answer: "B",
+    feedback: { A:"Incorrect. Melting points decrease down the group.", B:"Correct! Melting points decrease down the group.", C:"Incorrect. Trend is not constant.", D:"Incorrect. It decreases consistently." }
+  },
+  {
+    question: "Element X is in Group 1. Which of the following formulae for its oxide and chloride is correct?",
+    options: { A:"X₂O | XCl", B:"XO | XCl₂", C:"X₂O | XCl₂", D:"XO₂ | XCl" },
+    answer: "A",
+    feedback: { 
+      A:"Correct! Group 1 elements form X⁺ ions; oxide X₂O and chloride XCl are correct.", 
+      B:"Incorrect. XO and XCl₂ imply X²⁺ ion, which is wrong.", 
+      C:"Incorrect. Chloride formula is wrong.", 
+      D:"Incorrect. Oxide formula is wrong." 
+    }
+  },
+  {
+    question: "Which of the following is a physical property of all Group 17 elements at r.t.p.?",
+    options: { A:"They are coloured.", B:"They are gases.", C:"They are liquids.", D:"They are solids." },
+    answer: "A",
+    feedback: { 
+      A:"Correct! Halogens have colour; only F and Cl are gases.", 
+      B:"Incorrect. Only F₂ and Cl₂ are gases.", 
+      C:"Incorrect. Only Br₂ is liquid.", 
+      D:"Incorrect. Only I₂ and At are solids." 
+    }
+  },
+  {
+    question: "What is the correct state and colour of iodine at r.t.p.?",
+    options: { A:"A purple gas", B:"A grey-black solid", C:"A red-brown liquid", D:"A colourless gas" },
+    answer: "B",
+    feedback: { A:"Incorrect. Purple gas is iodine vapour when sublimed.", B:"Correct! Iodine is a grey-black solid at room temperature.", C:"Incorrect. Red-brown liquid is bromine.", D:"Incorrect. Colourless gas is not iodine." }
+  },
+  {
+    question: "The elements in Group 17 are known as the Halogens. How does their reactivity change down the group?",
+    options: { A:"Reactivity increases from F to I.", B:"Reactivity decreases from F to I.", C:"Reactivity remains constant.", D:"Only fluorine and chlorine are reactive." },
+    answer: "B",
+    feedback: { A:"Incorrect. This is opposite trend.", B:"Correct! Reactivity decreases down the group.", C:"Incorrect. Reactivity is not constant.", D:"Incorrect. Br and I are also reactive." }
+  },
+  {
+    question: "Why does the reactivity of Halogens change in the way described in question 9?",
+    options: { A:"It becomes easier to lose the outermost electron.", B:"The atomic size decreases, making it harder to gain an electron.", C:"The atoms become larger, making it more difficult to attract an electron to the valence shell.", D:"The number of protons decreases, reducing the nuclear charge." },
+    answer: "C",
+    feedback: { A:"Incorrect. Halogens gain electrons, not lose.", B:"Incorrect. Atomic size increases, not decreases.", C:"Correct! Larger atoms attract electrons less effectively.", D:"Incorrect. Proton number increases down the group." }
+  },
+  {
+    question: "Which of the following is not a property of Group 17 elements?",
+    options: { A:"They are diatomic molecules.", B:"They form ions with a 1- charge.", C:"They conduct electricity when solid.", D:"They are poor conductors of heat." },
+    answer: "C",
+    feedback: { A:"Incorrect. They are diatomic.", B:"Incorrect. They form 1- ions.", C:"Correct! Halogens do not conduct electricity when solid.", D:"Incorrect. Poor thermal conductors is true." }
+  },
+  {
+    question: "Astatine (At) is at the bottom of Group 17. Which of the following would be the best prediction of its properties?",
+    options: { A:"It is a colourless gas and the most reactive halogen.", B:"It is a black solid and the least reactive halogen.", C:"It is a pale yellow gas and the least reactive halogen.", D:"It is a black solid and the most reactive halogen." },
+    answer: "B",
+    feedback: { A:"Incorrect. Wrong state and reactivity.", B:"Correct! Astatine is a black solid and least reactive.", C:"Incorrect. Pale yellow gas is fluorine.", D:"Incorrect. Least reactive, not most." }
+  },
+  {
+    question: "What trend is seen in the boiling points of the Halogens as you go down the group?",
+    options: { A:"They decrease because the molecules get smaller.", B:"They increase because the intermolecular forces of attraction get stronger.", C:"They remain the same because they all have 7 valence electrons.", D:"They decrease because the atoms become less reactive." },
+    answer: "B",
+    feedback: { A:"Incorrect. Molecules get larger.", B:"Correct! Boiling points increase down the group.", C:"Incorrect. Valence electrons do not affect boiling points.", D:"Incorrect. Reactivity is separate from boiling points." }
+  },
+  {
+    question: "Which of the following is a characteristic reaction of Group 17 elements?",
+    options: { A:"They form acidic oxides when reacted with oxygen.", B:"They react with water to produce an acidic solution and hydrogen gas.", C:"They undergo displacement reactions with less reactive halogens.", D:"They react with other non-metals to form ionic compounds." },
+    answer: "C",
+    feedback: { A:"Incorrect. Acidic oxides are not defining.", B:"Incorrect. Halogens do not produce H₂ with water.", C:"Correct! Displacement reactions are characteristic.", D:"Incorrect. Halogens form covalent compounds with non-metals." }
+  },
+  {
+    question: "Aqueous chlorine is added to a solution of potassium bromide. What is the expected observation?",
+    options: { A:"The solution remains colourless.", B:"A black solid is formed.", C:"The solution turns from colourless to red-brown.", D:"The solution turns from red-brown to colourless." },
+    answer: "C",
+    feedback: { A:"Incorrect. Displacement occurs, solution changes colour.", B:"Incorrect. Black solid forms with KI, not KBr.", C:"Correct! Chlorine displaces bromine to form red-brown solution.", D:"Incorrect. Opposite reaction." }
+  },
+  {
+    question: "Which of the following reactions will not occur?",
+    options: { A:"Cl₂(aq) + 2KBr(aq) → 2KCl(aq) + Br₂(aq)", B:"Br₂(aq) + 2KI(aq) → 2KBr(aq) + I₂(aq)", C:"Cl₂(aq) + 2KI(aq) → 2KCl(aq) + I₂(aq)", D:"I₂(aq) + 2KBr(aq) → 2KI(aq) + Br₂(aq)" },
+    answer: "D",
+    feedback: { A:"Incorrect. This reaction occurs.", B:"Incorrect. This reaction occurs.", C:"Incorrect. This reaction occurs.", D:"Correct! I₂ cannot displace Br₂." }
+  },
+  {
+    question: "An element has an electronic configuration of 2.8.7. In which Group and Period of the Periodic Table is this element found?",
+    options: { A:"7 | 3", B:"17 | 2", C:"17 | 3", D:"8 | 3" },
+    answer: "C",
+    feedback: { A:"Incorrect. Group 7 refers to transition metals.", B:"Incorrect. Period 2 has 2 shells, not 3.", C:"Correct! 2.8.7 → Group 17, Period 3.", D:"Incorrect. Group 8 is noble gas." }
+  },
+  {
+    question: "An element has an electronic configuration of 2.8.1. Which of the following describes this element?",
+    options: { A:"An unreactive non-metal.", B:"A reactive metal.", C:"A reactive non-metal.", D:"An unreactive gaseous metal." },
+    answer: "B",
+    feedback: { A:"Incorrect. It is a reactive metal.", B:"Correct! 2.8.1 is a Group 1 reactive metal.", C:"Incorrect. Not a non-metal.", D:"Incorrect. It is reactive, not unreactive." }
+  },
+  {
+    question: "How do the properties of Sodium (Na) compare to Chlorine (Cl)?",
+    options: { A:"Na is a metal that gains electrons; Cl is a non-metal that loses electrons.", B:"Na is a non-metal that forms positive ions; Cl is a metal that forms negative ions.", C:"Na is a metal that loses one electron; Cl is a non-metal that gains one electron.", D:"Na and Cl are both metalloids with similar reactivity." },
+    answer: "C",
+    feedback: { A:"Incorrect. Metals lose electrons, non-metals gain.", B:"Incorrect. Na is a metal; Cl is a non-metal.", C:"Correct! Na loses one electron; Cl gains one.", D:"Incorrect. Both are not metalloids." }
+  },
+  {
+    question: "Which of the following substances contains ions with a 1+ charge and ions with a 1- charge?",
+    options: { A:"Sodium oxide (Na₂O)", B:"Magnesium chloride (MgCl₂)", C:"Calcium sulfide (CaS)", D:"Potassium bromide (KBr)" },
+    answer: "D",
+    feedback: { A:"Incorrect. Oxide ion is 2-, not 1-.", B:"Incorrect. Mg²⁺ ion exists.", C:"Incorrect. Ca²⁺ ion exists.", D:"Correct! K⁺ and Br⁻ ions have 1+ and 1- charges." }
+  }
+];
 
-    loadQuestion();
-  </script>
+let currentQuestion = 0;
+let score = 0;
+
+const questionEl = document.getElementById('question');
+const optionsEl = document.getElementById('options');
+const feedbackEl = document.getElementById('feedback');
+const submitBtn = document.getElementById('submitBtn');
+const scoreEl = document.getElementById('score');
+const restartBtn = document.getElementById('restartBtn');
+
+function loadQuestion() {
+  feedbackEl.style.display = 'none';
+  const q = questions[currentQuestion];
+  questionEl.innerText = `Q${currentQuestion+1}: ${q.question}`;
+  optionsEl.innerHTML = '';
+  for (const [key, text] of Object.entries(q.options)) {
+    const li = document.createElement('li');
+    li.innerHTML = `<label><input type="radio" name="option" value="${key}"> ${key}. ${text}</label>`;
+    optionsEl.appendChild(li);
+  }
+}
+
+submitBtn.addEventListener('click', () => {
+  const selected = document.querySelector('input[name="option"]:checked');
+  if (!selected) return alert("Please select an option.");
+  
+  const q = questions[currentQuestion];
+  const choice = selected.value;
+  feedbackEl.style.display = 'block';
+  feedbackEl.innerHTML = q.feedback[choice];
+
+  if (choice === q.answer) score++;
+
+  submitBtn.disabled = true;
+
+  setTimeout(() => {
+    currentQuestion++;
+    if (currentQuestion < questions.length) {
+      loadQuestion();
+      submitBtn.disabled = false;
+    } else {
+      showScore();
+    }
+  }, 2000);
+});
+
+function showScore() {
+  quiz.style.display = 'none';
+  scoreEl.style.display = 'block';
+  scoreEl.innerText = `Your final score is ${score} out of ${questions.length}.`;
+  restartBtn.style.display = 'block';
+}
+
+restartBtn.addEventListener('click', () => {
+  currentQuestion = 0;
+  score = 0;
+  scoreEl.style.display = 'none';
+  restartBtn.style.display = 'none';
+  quiz.style.display = 'block';
+  submitBtn.disabled = false;
+  loadQuestion();
+});
+
+loadQuestion();
+</script>
 </body>
 </html>
